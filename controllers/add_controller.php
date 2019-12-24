@@ -17,7 +17,6 @@ function addDilemma()
         global $db;
 
         $addVerb = $db->prepare("INSERT INTO verbe (verbe) VALUES  ('".$verb."')");
-
         $addVerb->execute();
 
         $addName = $db->prepare("INSERT INTO nom (name) VALUES('".$name."')");
@@ -31,7 +30,7 @@ function addDilemma()
 
 
     } else {
-        die('une erreur s\'est produite fdp');
+        die('hey ho ! pas de carabistouilles hein ! Une erreur s\'est produite !');
     }
 
 }
