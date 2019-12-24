@@ -30,9 +30,9 @@ class Verb
         $countVerbs = $db->prepare("SELECT COUNT(*) FROM verbe");
         $countVerbs->execute();
 
-        $data = $countVerbs->fetchAll();
+        $data = $countVerbs->fetchAll(PDO::FETCH_ASSOC);
 
-        $nbVerbs = $data[0];
+        $nbVerbs = $data;
 
         return $nbVerbs;
     }

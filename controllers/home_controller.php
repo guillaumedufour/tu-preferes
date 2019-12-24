@@ -1,4 +1,4 @@
 <?php
 
-$bestDilemmas = Dilemma::get3BestDilemmas();
+$leaderboard = Dilemma::getLeaderboard();
 

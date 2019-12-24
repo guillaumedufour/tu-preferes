@@ -30,9 +30,9 @@ class Name
         $countNames = $db->prepare("SELECT COUNT(*) FROM nom");
         $countNames->execute();
 
-        $data = $countNames->fetchAll();
+        $data = $countNames->fetchAll(PDO::FETCH_ASSOC);
 
-        $nbNames = $data[0];
+        $nbNames = $data;
 
         return $nbNames;
     }

@@ -13,7 +13,7 @@ class Dilemma
         global $db;
 
         $reqDilemma = $db->prepare('
-            SELECT  
+            SELECT *
             FROM dilemme d
             INNER JOIN nom n ON n.id_name = d.id_name
             INNER JOIN verbe v ON v.id_verb = d.id_verb
@@ -31,14 +31,25 @@ class Dilemma
         $this->nb_vote = $data['nb_vote'];
     }
 
-    public static function get3BestDilemmas()
+    public static function getLeaderboard()
     {
-        $bestDilemmas = [];
+        global $db;
+        $reqLeaderboard = $db->prepare('
+            SELECT DISTINCT *
+            FROM dilemme d
+            INNER JOIN nom n ON n.id_name = d.id_name
+            INNER JOIN verbe v ON v.id_verb = d.id_verb
+            ORDER BY d.nb_vote DESC
+            LIMIT 3 
+        ');
 
-        return $bestDilemmas;
+        $reqLeaderboard->execute();
+        $leaderboard = $reqLeaderboard->fetchAll(PDO::FETCH_ASSOC);
+
+        return $leaderboard;
     }
 
-    function getDilemma($idVerbe, $idNom, $idVerbe2, $idNom2)
+    function getDilemma($idVerbe, $idNom)
     {
         global $db;
 
