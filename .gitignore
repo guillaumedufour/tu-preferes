@@ -1,2 +1,3 @@
-/_config
+/_config/config.php
+/_config/db.php
 /.idea
