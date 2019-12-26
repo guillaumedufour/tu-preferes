@@ -16,16 +16,16 @@ function addDilemma()
 
         global $db;
 
-        $addVerb = $db->prepare("INSERT INTO verbe (verbe) VALUES  ('".$verb."')");
+        $addVerb = $db->prepare("INSERT INTO verb (verb) VALUES  ('".$verb."')");
         $addVerb->execute();
 
-        $addName = $db->prepare("INSERT INTO nom (name) VALUES('".$name."')");
+        $addName = $db->prepare("INSERT INTO name (name) VALUES('".$name."')");
         $addName->execute();
 
-        $addVerb2 = $db->prepare("INSERT INTO verbe (verbe) VALUES('".$verb2."')");
+        $addVerb2 = $db->prepare("INSERT INTO verb (verb) VALUES('".$verb2."')");
         $addVerb2->execute();
 
-        $addName2 = $db->prepare("INSERT INTO nom (name) VALUES ('".$name2."')");
+        $addName2 = $db->prepare("INSERT INTO name (name) VALUES ('".$name2."')");
         $addName2->execute();
 
 

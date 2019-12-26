@@ -30,7 +30,11 @@ class Dilemma
             $this->id_name = $data['id_name'];
             $this->name = $data['name'];
             $this->nb_vote = $data['nb_vote'];
+
+            return $this;
         }
+        return false;
+
     }
 
     public static function getLeaderboard()
@@ -87,5 +91,36 @@ class Dilemma
 
             return $idDilemma;
         }
+    }
+
+    public static function getRandomDilemmaId()
+    {
+        $verbsIds = Verb::getVerbsIds();
+        $namesIds = Name::getNamesIds();
+
+        $idVerb = array_rand($verbsIds);
+
+        if ($idVerb === 0 OR $idVerb === null or $idVerb === false) {
+            $idVerb = array_rand($verbsIds);
+        }
+
+        $idName = array_rand($namesIds);
+        if ($idName === 0 OR $idName === null or $idName === false) {
+            $idName = array_rand($namesIds);
+        }
+
+        $idDilemma = Dilemma::isExistingDilemma($idVerb, $idName);
+
+
+        if ($idDilemma === false OR $idDilemma === null) {
+            $idDilemma = Dilemma::createDilemma($idVerb, $idName);
+        }
+
+        return $idDilemma;
+    }
+
+    public static function vote($idDilemma)
+    {
+
     }
 }
