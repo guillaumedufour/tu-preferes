@@ -23,18 +23,18 @@ class Name
         $this->name = $data['name'];
     }
 
-    public static function countAllNames()
+    public static function getNamesIds()
     {
         global $db;
 
-        $countNames = $db->prepare("SELECT COUNT(*) FROM nom");
-        $countNames->execute();
+        $reqNamesIds = $db->prepare("SELECT id_name FROM nom");
+        $reqNamesIds->execute();
 
-        $data = $countNames->fetchAll(PDO::FETCH_ASSOC);
+        $data = $reqNamesIds->fetchAll(PDO::FETCH_ASSOC);
 
-        $nbNames = $data;
+        $namesIds = $data;
 
-        return $nbNames;
+        return $namesIds;
     }
 
 }

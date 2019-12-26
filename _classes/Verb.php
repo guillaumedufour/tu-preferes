@@ -23,18 +23,18 @@ class Verb
         $this->verb = $data['verb'];
     }
 
-    public static function countAllVerbs()
+    public static function getVerbsIds()
     {
         global $db;
 
-        $countVerbs = $db->prepare("SELECT COUNT(*) FROM verbe");
-        $countVerbs->execute();
+        $reqVerbsIds = $db->prepare("SELECT COUNT(*) FROM verbe");
+        $reqVerbsIds->execute();
 
-        $data = $countVerbs->fetchAll(PDO::FETCH_ASSOC);
+        $data = $reqVerbsIds->fetchAll(PDO::FETCH_ASSOC);
 
-        $nbVerbs = $data;
+        $verbsIds = $data;
 
-        return $nbVerbs;
+        return $verbsIds;
     }
 
 }

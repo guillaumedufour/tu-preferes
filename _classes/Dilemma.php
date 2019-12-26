@@ -34,6 +34,7 @@ class Dilemma
     public static function getLeaderboard()
     {
         global $db;
+
         $reqLeaderboard = $db->prepare('
             SELECT DISTINCT *
             FROM dilemme d
@@ -49,7 +50,7 @@ class Dilemma
         return $leaderboard;
     }
 
-    function getDilemma($idVerbe, $idNom)
+    public static function getRandomDilemma($idVerbe, $idNom)
     {
         global $db;
 
@@ -58,5 +59,39 @@ class Dilemma
         return $dilemma;
     }
 
+    public static function isExistingDilemma($id_verb, $id_name)
+    {
+        global $db;
+        $reqDilemma = $db->prepare('
+            SELECT d.id_dilemma
+            FROM dilemme d
+            WHERE (d.id_verb = '.$id_verb.' AND d.id_name = '.$id_name.')');
+        $reqDilemma->execute();
 
-}
+        $id_dilemma = $reqDilemma->fetch();
+
+        return $id_dilemma;
+    }
+
+    public static function createDilemma($id_verbe, $id_name)
+    {
+        global $db;
+
+        if (!empty($id_verbe) && !empty($id_name)) {
+
+            $addVerb = $db->prepare("INSERT INTO dilemme (id_verbe) VALUES  (".$id_verbe.")");
+            $addVerb->execute();
+
+            $addName = $db->prepare("INSERT INTO dilemme (id_nom) VALUES(".$id_name.")");
+            $addName->execute();
+
+            $reqLastId = $db->prepare('SELECT MAX(id_dilemme) FROM dilemme');
+            $lastId = $reqLastId->fetch();
+
+            $idDilemma = $lastId;
+
+            return $idDilemma;
+        }
+
+
+    }
