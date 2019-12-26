@@ -12,7 +12,7 @@ class Verb
 
         $reqVerb = $db->prepare('
             SELECT * 
-            FROM verbe v
+            FROM verb v
             WHERE v.id_verb = ?
         ');
 
@@ -27,7 +27,7 @@ class Verb
     {
         global $db;
 
-        $reqVerbsIds = $db->prepare("SELECT COUNT(*) FROM verbe");
+        $reqVerbsIds = $db->prepare("SELECT id_verb FROM verb");
         $reqVerbsIds->execute();
 
         $data = $reqVerbsIds->fetchAll(PDO::FETCH_ASSOC);

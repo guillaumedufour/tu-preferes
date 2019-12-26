@@ -5,26 +5,26 @@
 <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
     <?php require_once 'views/_includes/header.php' ?>
 
-    <h1 class="mb-5"> Alors alors ... tu préfères </h1>
-    <div class="form">
-        <form action="" method="post">
-            <input type="hidden" name="id_verb_choice1" value="<?php echo($dilemma->id_verb) ?>">
-            <input type="hidden" name="id_name_choice1" value="<?php echo($dilemma->id_name) ?>">
-            <button class="btn btn-primary" id="choice_1" type="submit"
-                    name="submit_choice_1"><?php echo($dilemma->verb.' '.$dilemma->name); ?></button>
-        </form>
-    </div>
+        <h1 class="mb-5"> Alors alors ... tu préfères </h1>
+        <div class="form">
+            <form action="" method="post">
+                <input type="hidden" name="id_verb_choice1" value="<?php echo($fullDilemma1->id_verb) ?>">
+                <input type="hidden" name="id_name_choice1" value="<?php echo($fullDilemma1->id_name) ?>">
+                <button class="btn btn-primary" id="choice_1" type="submit"
+                        name="submit_choice_1"><?php echo($fullDilemma1->verb.' '.$fullDilemma1->name); ?></button>
+            </form>
+        </div>
 
-    <p class="mt-5 mb-5">Ou alors...</p>
+        <p class="mt-5 mb-5">Ou alors...</p>
 
-    <div class="form">
-        <form id="choice_2" action="" method="post">
-            <input type="hidden" name="id_verb_choice2" value="<?php echo($dilemma2->id_verb) ?>">
-            <input type="hidden" name="id_name_choice2" value="<?php echo($dilemma2->id_name) ?>">
-            <button class="btn btn-secondary" type="submit"
-                    name="submit_choice_2"><?php echo($dilemma2->verb.' '.$dilemma2->name); ?></button>
-        </form>
-    </div>
+        <div class="form">
+            <form id="choice_2" action="" method="post">
+                <input type="hidden" name="id_verb_choice2" value="<?php echo($fullDilemma2->id_verb) ?>">
+                <input type="hidden" name="id_name_choice2" value="<?php echo($fullDilemma2->id_name) ?>">
+                <button class="btn btn-secondary" type="submit"
+                        name="submit_choice_2"><?php echo($fullDilemma2->verb.' '.$fullDilemma2->name); ?></button>
+            </form>
+        </div>
 
     <?php require_once 'views/_includes/footer.php' ?>
 </div>

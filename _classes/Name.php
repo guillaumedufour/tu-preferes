@@ -12,7 +12,7 @@ class Name
 
         $reqName = $db->prepare('
             SELECT * 
-            FROM nom n
+            FROM name n
             WHERE n.id_name = ?
         ');
 
@@ -27,7 +27,7 @@ class Name
     {
         global $db;
 
-        $reqNamesIds = $db->prepare("SELECT id_name FROM nom");
+        $reqNamesIds = $db->prepare("SELECT id_name FROM name");
         $reqNamesIds->execute();
 
         $data = $reqNamesIds->fetchAll(PDO::FETCH_ASSOC);

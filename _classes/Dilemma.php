@@ -14,21 +14,23 @@ class Dilemma
 
         $reqDilemma = $db->prepare('
             SELECT *
-            FROM dilemme d
-            INNER JOIN nom n ON n.id_name = d.id_name
-            INNER JOIN verbe v ON v.id_verb = d.id_verb
+            FROM dilemma d
+            INNER JOIN name n ON n.id_name = d.id_name
+            INNER JOIN verb v ON v.id_verb = d.id_verb
             WHERE d.id_dilemma = ?
         ');
 
-        $reqDilemma->execute([str_secur($id)]);
-        $data = $reqDilemma->fetch();
+        $reqDilemma->execute([$id]);
+        $data = $reqDilemma->fetch(PDO::FETCH_ASSOC);
 
-        $this->id = $id;
-        $this->id_verb = $data['id_verb'];
-        $this->verb = $data['verb'];
-        $this->id_name = $data['id_name'];
-        $this->name = $data['name'];
-        $this->nb_vote = $data['nb_vote'];
+        if (!empty($data)) {
+            $this->id = $id;
+            $this->id_verb = $data['id_verb'];
+            $this->verb = $data['verb'];
+            $this->id_name = $data['id_name'];
+            $this->name = $data['name'];
+            $this->nb_vote = $data['nb_vote'];
+        }
     }
 
     public static function getLeaderboard()
@@ -37,9 +39,9 @@ class Dilemma
 
         $reqLeaderboard = $db->prepare('
             SELECT DISTINCT *
-            FROM dilemme d
-            INNER JOIN nom n ON n.id_name = d.id_name
-            INNER JOIN verbe v ON v.id_verb = d.id_verb
+            FROM dilemma d
+            INNER JOIN name n ON n.id_name = d.id_name
+            INNER JOIN verb v ON v.id_verb = d.id_verb
             ORDER BY d.nb_vote DESC
             LIMIT 3 
         ');
@@ -50,27 +52,19 @@ class Dilemma
         return $leaderboard;
     }
 
-    public static function getRandomDilemma($idVerbe, $idNom)
-    {
-        global $db;
-
-        $dilemma = [];
-
-        return $dilemma;
-    }
 
     public static function isExistingDilemma($id_verb, $id_name)
     {
         global $db;
         $reqDilemma = $db->prepare('
             SELECT d.id_dilemma
-            FROM dilemme d
+            FROM dilemma d
             WHERE (d.id_verb = '.$id_verb.' AND d.id_name = '.$id_name.')');
         $reqDilemma->execute();
 
-        $id_dilemma = $reqDilemma->fetch();
+        $id_dilemma = $reqDilemma->fetch(PDO::FETCH_ASSOC);
 
-        return $id_dilemma;
+        return $id_dilemma['id_dilemma'];
     }
 
     public static function createDilemma($id_verbe, $id_name)
@@ -79,19 +73,19 @@ class Dilemma
 
         if (!empty($id_verbe) && !empty($id_name)) {
 
-            $addVerb = $db->prepare("INSERT INTO dilemme (id_verbe) VALUES  (".$id_verbe.")");
-            $addVerb->execute();
+            $reqAddDilemma = $db->prepare("
+            INSERT INTO dilemma (id_verb,id_name) VALUES (".$id_verbe.",".$id_name.")");
+            $reqAddDilemma->execute();
 
-            $addName = $db->prepare("INSERT INTO dilemme (id_nom) VALUES(".$id_name.")");
-            $addName->execute();
-
-            $reqLastId = $db->prepare('SELECT MAX(id_dilemme) FROM dilemme');
+            $reqLastId = $db->prepare('SELECT MAX(id_dilemma) FROM dilemma');
+            $reqLastId->execute();
             $lastId = $reqLastId->fetch();
 
-            $idDilemma = $lastId;
+
+            $idDilemma = $lastId[0];
+
 
             return $idDilemma;
         }
-
-
     }
+}
