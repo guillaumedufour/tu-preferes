@@ -4,7 +4,10 @@
 class Dilemma
 {
     public $id;
+    public $id_verb;
     public $verb;
+
+    public $id_name;
     public $name;
     public $nb_vote;
 
@@ -42,7 +45,7 @@ class Dilemma
         global $db;
 
         $reqLeaderboard = $db->prepare('
-            SELECT DISTINCT *
+            SELECT *
             FROM dilemma d
             INNER JOIN name n ON n.id_name = d.id_name
             INNER JOIN verb v ON v.id_verb = d.id_verb
